@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -9,7 +10,9 @@ import SubmitButton from '../../components/SubmitButton';
 import Input from '../../components/UnformFields/Input';
 import { RiFacebookFill, RiGoogleFill } from 'react-icons/ri';
 import SocialMediaButton from '../../components/SocialMediaButton';
-import /* Link */ 'react-router-dom';
+import { Link } from 'react-router-dom';
+import apiClient from '../../services/apiClient';
+import { errorMessage } from '../../store/modules/alert/actions';
 
 function LoginPage() {
   const formRef = useRef();
@@ -48,6 +51,17 @@ function LoginPage() {
 
   const { loggingIn } = useSelector(state => state.auth);
 
+  function handleSocialLoginSubmit(socialMedia) {
+    apiClient
+      .get(`/login/${socialMedia}`)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        dispatch(errorMessage(error.message));
+      });
+  }
+
   return (
     <Container>
       <BoxLogin>
@@ -58,12 +72,22 @@ function LoginPage() {
           <Input name="email" placeholder="E-mail" />
           <Input name="password" placeholder="Senha" type="password" />
           <SubmitButton loading={loggingIn} text={'Entrar'} />
-          {/*           <Link to="/register">Registrar</Link>
-           */}{' '}
-          <span>Ou entrar com</span>
+          <Link to="/register">Registrar</Link> <span>Ou entrar com</span>
           <SocialMediaBox>
-            <SocialMediaButton loading={loggingIn} text={'Facebook'} color="#4267B2" icon={RiFacebookFill} />
-            <SocialMediaButton loading={loggingIn} text={'Google'} color="#D0463B" icon={RiGoogleFill} />
+            <SocialMediaButton
+              loading={loggingIn}
+              text={'Facebook'}
+              color="#4267B2"
+              icon={RiFacebookFill}
+              onClick={() => handleSocialLoginSubmit('facebook')}
+            />
+            <SocialMediaButton
+              loading={loggingIn}
+              text={'Google'}
+              color="#D0463B"
+              icon={RiGoogleFill}
+              onClick={() => handleSocialLoginSubmit('google')}
+            />
           </SocialMediaBox>
         </SignInForm>
       </BoxLogin>

@@ -4,9 +4,9 @@ export const SocialMediaButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.color};
-  border: none;
-  color: #fff;
+  border: 1px solid ${props => props.color};
+  color: ${props => props.color};
+  background: none;
   border-radius: 20px;
   width: 100%;
   font-size: 11px;
@@ -19,6 +19,7 @@ export const SocialMediaButton = styled.button`
   &:hover {
     background-color: ${props => props.color};
     opacity: 0.89;
+    color: #fff;
   }
 
   &:disabled {
@@ -31,8 +32,8 @@ export const SocialMediaButton = styled.button`
   }
 
   svg {
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
   }
 
   // disable Bootstrap shadow

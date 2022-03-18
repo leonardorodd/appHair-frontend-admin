@@ -3,7 +3,7 @@ import axios from 'axios';
 import portalConfig from '../portalConfig.json';
 
 const api = axios.create({
-  baseURL: `http://${portalConfig.API_SERVICE_HOST}:${portalConfig.API_SERVICE_PORT}`,
+  baseURL: `http://${portalConfig.API_SERVICE_HOST}:${portalConfig.API_SERVICE_PORT}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
