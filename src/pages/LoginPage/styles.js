@@ -6,10 +6,9 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  /*   background: #dbdbdb;
- */
-  background: var(--tertiary-text-color);
   height: 100%;
+  background: red;
+  background: var(--tertiary-text-color);
 `;
 
 export const BoxLogin = styled.div`
@@ -20,6 +19,7 @@ export const BoxLogin = styled.div`
   border-radius: 20px;
   background: #fff;
   width: 25%;
+  max-width: 400px;
   padding: 25px;
   margin-bottom: 80px;
 
@@ -28,10 +28,19 @@ export const BoxLogin = styled.div`
     max-width: 130px;
     height: auto;
   }
+
+  @media screen and (max-device-height: 900px) and (max-device-width: 415px) and (orientation: portrait) {
+    min-width: 90%;
+  }
+
+  @media screen and (max-device-width: 415px) and (orientation: landscape) {
+    min-width: 90%;
+  }
 `;
 
 export const SignInForm = styled(Form)`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

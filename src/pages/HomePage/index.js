@@ -9,21 +9,11 @@ import { signOut } from '../../store/modules/auth/actions';
 import { Container } from './styles';
 
 function HomePage() {
-  const dispatch = useDispatch();
-  const { items, loading, error } = useSelector(state => state.user);
   const { user } = useSelector(state => state.auth);
-
-  useEffect(() => {
-    dispatch(getAllRequest());
-  }, [dispatch]);
-
-  function handleDeleteUser(id) {
-    dispatch(deleteUserRequest(id));
-  }
 
   return (
     <Container>
-      <h1>Olá, {user.email}!</h1>
+      <h4>Bem-vindo, {user && user.nome}!</h4>
 
       {/*  <h1>ddddd</h1>
       <h1>Hi {user.firstName}!</h1>

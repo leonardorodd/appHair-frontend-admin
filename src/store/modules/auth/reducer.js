@@ -1,7 +1,11 @@
-let user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? { loggedIn: true, user } : {};
+const INITIAL_STATE = {
+  loggedIn: false,
+  loggingIn: false,
+  user: null,
+  token: null,
+};
 
-export default function auth(state = initialState, action) {
+export default function auth(state = INITIAL_STATE, action) {
   switch (action.type) {
     case '@auth/SIGN_IN_REQUEST':
       return {
@@ -11,11 +15,18 @@ export default function auth(state = initialState, action) {
       return {
         loggedIn: true,
         user: action.payload,
+        loggingIn: false,
       };
     case '@auth/SIGN_IN_FAILURE':
-      return {};
+      return {
+        loggingIn: false,
+      };
     case '@auth/SIGN_OUT':
-      return {};
+      return {
+        loggedIn: false,
+        loggingIn: false,
+        user: null,
+      };
     default:
       return state;
   }

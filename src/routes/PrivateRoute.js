@@ -3,15 +3,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const loggedUser = localStorage.getItem('user');
+  const { loggedIn } = useSelector(state => state.auth);
 
   return (
-    <Route
-      {...rest}
-      render={props => (loggedUser !== null ? <Component {...props} /> : <Redirect from="/" to="/login" />)}
-    />
+    <Route {...rest} render={props => (loggedIn ? <Component {...props} /> : <Redirect from="/" to="/login" />)} />
   );
 };
 

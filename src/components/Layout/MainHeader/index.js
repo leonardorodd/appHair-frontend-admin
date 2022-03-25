@@ -10,7 +10,7 @@ const MainHeader = () => {
   const profileMenu = [
     {
       title: 'Perfil',
-      link: '',
+      link: '/profile',
       externalLink: false,
     },
     {
@@ -36,7 +36,7 @@ const MainHeader = () => {
       <Profile>
         {/*                 <BsPeopleCircle size={25} />
          */}
-        <Dropdown title={user.email} options={profileMenu} />
+        <Dropdown title={user && user.nome} options={profileMenu} />
         <img src={ProfilePhoto} alt="profile" />
       </Profile>
       {/* <Profile>

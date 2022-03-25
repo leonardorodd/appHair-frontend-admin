@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
-import { MdExitToApp, MdStore, MdPerson, MdClear } from 'react-icons/md';
+import { MdExitToApp, MdStore, MdPerson, MdClear, MdManageAccounts } from 'react-icons/md';
 import MenuItemLink from './MenuItem';
 
 import { Container, Header, MenuContainer, LogImg, Footer } from './styles';
@@ -13,11 +13,17 @@ const Aside = () => {
   const dispatch = useDispatch();
 
   const MenuItens = [
-    { title: 'Artistas', icon: MdPerson, link: '/artists', subItens: [] },
+    { title: 'Dispositos - Artistas', icon: MdPerson, link: '/artists', subItens: [] },
     {
-      title: 'Estabelecimento',
+      title: 'Estabelecimento - Receita',
       icon: MdStore,
       link: '/establishment',
+      subItens: [],
+    },
+    {
+      title: 'Gestão de usuários',
+      icon: MdManageAccounts,
+      link: '/usersmanagement',
       subItens: [],
     },
   ];

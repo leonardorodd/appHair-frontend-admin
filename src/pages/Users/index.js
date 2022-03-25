@@ -1,18 +1,28 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllRequest, deleteUserRequest } from '../../store/modules/user/actions';
 import { Container, PageTitle } from './styles';
+import apiClient from '../../services/apiClient';
 
-function Artists() {
+function Users() {
+  const [usersList, setUsersList] = useState([]);
+
+  useEffect(() => {
+    apiClient
+      .get('/admin/users')
+      .then(response => console.log(response.data))
+      .catch(error => console.log(error));
+  }, []);
+
   return (
     <Container>
       <PageTitle>
-        <p>Dispositivos conectados - artistas</p>
+        <p>Gestão de usuários</p>
       </PageTitle>
       <Table responsive>
         <thead>
@@ -48,4 +58,4 @@ function Artists() {
   );
 }
 
-export default Artists;
+export default Users;

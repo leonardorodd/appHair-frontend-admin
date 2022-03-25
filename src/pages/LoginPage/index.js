@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { Container, Title, Subtitle, BoxLogin, SignInForm, SocialMediaBox } from './styles';
@@ -10,13 +11,23 @@ import SubmitButton from '../../components/SubmitButton';
 import Input from '../../components/UnformFields/Input';
 import { RiFacebookFill, RiGoogleFill } from 'react-icons/ri';
 import SocialMediaButton from '../../components/SocialMediaButton';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import apiClient from '../../services/apiClient';
 import { errorMessage } from '../../store/modules/alert/actions';
+import { useLocation, useHistory, useS } from 'react-router-dom';
+import { useState } from 'react';
+import queryString from 'query-string';
 
 function LoginPage() {
   const formRef = useRef();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+  const [url, setUrl] = useState('');
+  const [socialMedia, setSocialMedia] = useState('');
+
+  /*  const params = new URLSearchParams(window.location.search);
+  const login = params.get('teste'); */
 
   async function handleSignInSubmit(data, { reset }) {
     try {
@@ -51,16 +62,16 @@ function LoginPage() {
 
   const { loggingIn } = useSelector(state => state.auth);
 
-  function handleSocialLoginSubmit(socialMedia) {
+  useEffect(() => {
     apiClient
       .get(`/login/${socialMedia}`)
       .then(response => {
-        console.log(response);
+        window.location.href = response.url;
       })
       .catch(error => {
         dispatch(errorMessage(error.message));
       });
-  }
+  }, [socialMedia, dispatch]);
 
   return (
     <Container>
@@ -72,21 +83,24 @@ function LoginPage() {
           <Input name="email" placeholder="E-mail" />
           <Input name="password" placeholder="Senha" type="password" />
           <SubmitButton loading={loggingIn} text={'Entrar'} />
-          <Link to="/register">Registrar</Link> <span>Ou entrar com</span>
+          {/*           <Link to="/register">Registrar</Link>
+           */}{' '}
+          <span>Ou entrar com</span>
           <SocialMediaBox>
             <SocialMediaButton
               loading={loggingIn}
               text={'Facebook'}
               color="#4267B2"
               icon={RiFacebookFill}
-              onClick={() => handleSocialLoginSubmit('facebook')}
+              onClick={() => setSocialMedia('facebook')}
             />
             <SocialMediaButton
               loading={loggingIn}
               text={'Google'}
+              url={url}
               color="#D0463B"
               icon={RiGoogleFill}
-              onClick={() => handleSocialLoginSubmit('google')}
+              onClick={() => setSocialMedia('google')}
             />
           </SocialMediaBox>
         </SignInForm>
