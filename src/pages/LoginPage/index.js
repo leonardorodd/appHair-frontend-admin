@@ -63,14 +63,15 @@ function LoginPage() {
   const { loggingIn } = useSelector(state => state.auth);
 
   useEffect(() => {
-    apiClient
-      .get(`/login/${socialMedia}`)
-      .then(response => {
-        window.location.href = response.url;
-      })
-      .catch(error => {
-        dispatch(errorMessage(error.message));
-      });
+    socialMedia &&
+      apiClient
+        .get(`/login/${socialMedia}`)
+        .then(response => {
+          window.location.href = response.url;
+        })
+        .catch(error => {
+          dispatch(errorMessage(error.message));
+        });
   }, [socialMedia, dispatch]);
 
   return (
