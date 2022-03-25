@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 import { all, takeLatest, call, put } from 'redux-saga/effects';
-import { signInSuccess, signInFailure, signOut } from '../auth/actions';
+import { signInSuccess, signInFailure /* signOut */ } from '../auth/actions';
 import { errorMessage } from '../alert/actions';
 import apiClient from '../../../services/apiClient';
-import jwt from 'jsonwebtoken';
 
 /* import { history } from '../../../services/history';
  */
@@ -25,7 +24,7 @@ export function* login({ payload }) {
   }
 }
 
-export function* setToken({ payload }) {
+/* export function* setToken({ payload }) {
   if (!payload) return;
 
   const { token } = payload.auth;
@@ -45,7 +44,7 @@ export function tokenIsExpired(token) {
   }
 
   return true;
-}
+} */
 
 export function logout() {
   localStorage.removeItem('user');

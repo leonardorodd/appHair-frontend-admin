@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 import axios from 'axios';
-import portalConfig from '../portalConfig.json';
-
+/* import portalConfig from '../portalConfig.json';
+ */
 const api = axios.create({
-  baseURL: `http://${portalConfig.API_SERVICE_HOST}:${portalConfig.API_SERVICE_PORT}/api`,
+  baseURL:
+    'http://5ac4-2804-d59-9a5f-ca00-ec4b-b029-e8d2-439f.ngrok.io' /* `http://${portalConfig.API_SERVICE_HOST}:${portalConfig.API_SERVICE_PORT}/api` */,
   headers: {
     'Content-Type': 'application/json',
   },
