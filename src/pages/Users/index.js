@@ -53,7 +53,7 @@ function Users() {
   return (
     <Container>
       <PageTitle>
-        <p>Gestão de usuáriosa</p>
+        <p>Gestão de usuáriosaaaa</p>
         <CreateUser updateUsersList={usersList} />
       </PageTitle>
       <Table responsive>
