@@ -57,7 +57,7 @@ const CreateUser = ({ updateUsersList }) => {
   return (
     <Container>
       <button type="button" className="baseButtonStyle" onClick={handleShow}>
-        <span>Adicionar</span>
+        <span>Adicionaraa</span>
         <FaPlus />
       </button>
       <CreateUserModal
