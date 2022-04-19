@@ -7,7 +7,7 @@ export default reducers => {
     {
       key: 'apphair',
       storage: storage,
-      whitelist: ['auth', 'alert', 'user'],
+      whitelist: ['auth', 'alert'],
     },
     reducers,
   );

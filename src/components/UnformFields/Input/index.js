@@ -26,7 +26,6 @@ export default function Input({ name, label, value, ...rest }) {
         ref={inputRef}
         id={fieldName}
         defaultValue={value || defaultValue}
-        placeholder={label || ''}
         style={error && { borderColor: 'red' }}
         {...rest}
       />

@@ -18,14 +18,10 @@ function SocialLogin() {
     apiClient
       .get(`/login/google/callback${location.search}`)
       .then(response => {
-        console.log('aqui: ', response.data);
         dispatch(signInSuccess(response.data));
       })
       .catch(error => {
         dispatch(signInFailure(error.msg));
-      })
-      .finally(() => {
-        setTimeout(() => history.push('/'), 3000);
       });
   }, [dispatch, history, location.search]);
 

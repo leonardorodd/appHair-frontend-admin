@@ -1,42 +1,48 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import { all, takeLatest, call, put } from 'redux-saga/effects';
-import { signInSuccess, signInFailure /* signOut */ } from '../auth/actions';
+import { signInSuccess, signInFailure, signOut } from '../auth/actions';
 import { errorMessage } from '../alert/actions';
 import apiClient from '../../../services/apiClient';
+import jwt from 'jsonwebtoken';
 
-/* import { history } from '../../../services/history';
- */
 export function* login({ payload }) {
   try {
     const { email, password } = payload;
 
     const response = yield call(apiClient.post, '/login/app', JSON.stringify({ email, password }));
 
-    /*     localStorage.setItem('user', JSON.stringify(response));
-     */
-
-    /*     setToken(response);
-     */ yield put(signInSuccess(response));
+    yield put(signInSuccess(response.data));
 
     history.push('/');
   } catch (error) {
-    yield put(signInFailure(error.msg || error.message));
+    yield put(errorMessage(payload.error));
+    yield put(signInFailure());
   }
+}
+
+export function logout() {
+  /*   localStorage.removeItem('user');
+   */
+  delete apiClient.defaults.headers['Access-Token'];
+  history.push('/');
 }
 
 /* export function* setToken({ payload }) {
   if (!payload) return;
 
-  const { token } = payload.auth;
+  const { access_token: accessToken, expires_in: expiresIn } = payload.auth.token;
 
-  if (token && !tokenIsExpired(token)) {
-    apiClient.defaults.headers.Authorization = `Bearer ${token}`;
+  apiClient.defaults.headers.common['Access-Token'] = accessToken;
+
+  if (new Date(expiresIn).getTime() < new Date.getTime()) {
+    console.log('sss');
   } else {
     yield put(signOut());
   }
 }
-
-export function tokenIsExpired(token) {
+ */
+/* export function tokenIsExpired(token) {
   const decodedToken = jwt.decode(token, { complete: true, json: true });
 
   if (decodedToken.payload.exp * 1000 > Date.now()) {
@@ -46,17 +52,9 @@ export function tokenIsExpired(token) {
   return true;
 } */
 
-export function logout() {
-  localStorage.removeItem('user');
-}
-
-export function* loginError({ payload }) {
-  yield put(errorMessage(payload.error));
-}
-
-// eslint-disable-next-line prettier/prettier
 export default all([
+  /*   takeLatest('persist/REHYDRATE', setToken),
+   */
   takeLatest('@auth/SIGN_IN_REQUEST', login),
   takeLatest('@auth/SIGN_OUT', logout),
-  takeLatest('@auth/SIGN_IN_FAILURE', loginError),
 ]);

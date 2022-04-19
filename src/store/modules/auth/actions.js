@@ -8,17 +8,16 @@ export function signInRequest(email, password) {
   };
 }
 
-export function signInSuccess(user) {
+export function signInSuccess(userData) {
   return {
     type: '@auth/SIGN_IN_SUCCESS',
-    payload: user,
+    payload: userData,
   };
 }
 
-export function signInFailure(error) {
+export function signInFailure() {
   return {
     type: '@auth/SIGN_IN_FAILURE',
-    payload: error,
   };
 }
 

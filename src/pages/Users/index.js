@@ -7,53 +7,78 @@ import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllRequest, deleteUserRequest } from '../../store/modules/user/actions';
 import { Container, PageTitle } from './styles';
+import { MdDelete } from 'react-icons/md';
 import apiClient from '../../services/apiClient';
+import CreateUser from './CreateUser';
 
 function Users() {
   const [usersList, setUsersList] = useState([]);
 
-  useEffect(() => {
+  const getUsers = () => {
     apiClient
       .get('/admin/users')
-      .then(response => console.log(response.data))
+      .then(response => setUsersList(response.data))
       .catch(error => console.log(error));
+  };
+
+  const getUser = id => {
+    apiClient
+      .get('/admin/users')
+      .then(response => setUsersList(response.data))
+      .catch(error => console.log(error));
+  };
+
+  const deleteUser = id => {
+    apiClient
+      .delete(`https://60fbca4591156a0017b4c8a7.mockapi.io/fakeData/${id}`)
+      .then(() => {
+        getUsers();
+      })
+      .catch(error => console.log(error));
+  };
+
+  const updateUser = id => {
+    apiClient
+      .delete(`https://60fbca4591156a0017b4c8a7.mockapi.io/fakeData/${id}`)
+      .then(() => {
+        getUsers();
+      })
+      .catch(error => console.log(error));
+  };
+
+  useEffect(() => {
+    getUsers();
   }, []);
 
   return (
     <Container>
       <PageTitle>
-        <p>Gestão de usuários</p>
+        <p>Gestão de usuáriosa</p>
+        <CreateUser updateUsersList={usersList} />
       </PageTitle>
       <Table responsive>
         <thead>
           <tr>
             <th>Nome</th>
-            <th>Modelo do celular</th>
-            <th>Sistema</th>
-            <th>Data (último acesso)</th>
+            <th>email</th>
+            <th>Status</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>Fulano</th>
-            <td>Iphone 11</td>
-            <td>IOS 12</td>
-            <td>12/11/2021</td>
-          </tr>
-          <tr>
-            <th>Fulano</th>
-            <td>S10</td>
-            <td>Android</td>
-            <td>12/11/2021</td>
-          </tr>
-          <tr>
-            <th>Fulano</th>
-            <td>Iphone 7</td>
-            <td>Android</td>
-            <td>12/11/2021</td>
-          </tr>
+          {usersList.map((user, index) => (
+            <tr key={index}>
+              <th>{user.nome}</th>
+              <td>{user.email}</td>
+              <td>{user.ativo ? 'Ativo' : 'Inativo'}</td>
+              <td>
+                <MdDelete />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
+      {console.log(usersList)}
     </Container>
   );
 }

@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { darken } from 'polished';
 export default createGlobalStyle`
     :root {
         --base-primary-color: #222;
@@ -45,6 +46,124 @@ export default createGlobalStyle`
     html, body, #root {
         width: 100vw;
         height: 100vh;
+    }
+
+    .baseButtonStyle {
+        cursor: pointer;
+        background: none;
+        border: none;
+        border-radius: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        font-size: 11px;
+        height: 35px;
+        transition: background 0.3s;
+        color: var(--base-quaternary-color);
+        background: var(--base-tertiary-color);
+
+        &:hover {
+            background: ${darken(0.04, '#fd5c0e')};
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    .secondaryButtonStyle {
+        cursor: pointer;
+        background: none;
+        border-radius: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        font-size: 11px;
+        height: 35px;
+        border: 1px solid var(--base-tertiary-color);
+        transition: background 0.3s;
+        color: var(--base-tertiary-color);
+
+        &:hover {
+            background: var(--base-tertiary-color);
+            color: var(--base-quaternary-color);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    .baseModalStyle {
+
+        .modal-content {
+            border: none;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            background: var(--base-tertiary-color);
+            color: #fff;
+
+            span {
+                color: #fff;
+            }
+        }
+
+        .modal-body {
+            color: var(--primary-text-color);
+            padding: 0px;
+        }
+
+        .modal-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            p {
+                margin: 0px;
+                font-weight: bold;
+                font-size: 18px;
+            }
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            border-top: 0px;
+
+            > :first-child {
+                border: 2px solid var(--primary-border-color);
+                background: none;
+                color: var(--primary-text-color);
+
+                 &:hover {
+                    color: var(--base-tertiary-color);
+                }
+            }
+
+            button {
+                width: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .modal-90w {
+            width: 90%;
+            max-width: 1300px;
+        }
     }
 
 `;

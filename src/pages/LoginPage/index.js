@@ -84,8 +84,6 @@ function LoginPage() {
           <Input name="email" placeholder="E-mail" />
           <Input name="password" placeholder="Senha" type="password" />
           <SubmitButton loading={loggingIn} text={'Entrar'} />
-          {/*           <Link to="/register">Registrar</Link>
-           */}{' '}
           <span>Ou entrar com</span>
           <SocialMediaBox>
             <SocialMediaButton
