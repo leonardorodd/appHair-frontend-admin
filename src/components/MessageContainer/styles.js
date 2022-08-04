@@ -7,6 +7,7 @@ export const Container = styled.div.attrs()`
   right: 0;
   width: 100%;
   font-size: 16px;
+  z-index: 999999999999;
   display: flex;
   align-items: center;
   justify-content: center;

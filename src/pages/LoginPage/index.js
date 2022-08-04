@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { Container, Title, Subtitle, BoxLogin, SignInForm, SocialMediaBox } from './styles';
@@ -24,7 +24,7 @@ function LoginPage() {
   const location = useLocation();
   const history = useHistory();
   const [url, setUrl] = useState('');
-  const [socialMedia, setSocialMedia] = useState('');
+  const [socialMedia, setSocialMedia] = useState();
 
   /*  const params = new URLSearchParams(window.location.search);
   const login = params.get('teste'); */
@@ -67,6 +67,7 @@ function LoginPage() {
       apiClient
         .get(`/login/${socialMedia}`)
         .then(response => {
+          console.log(response);
           window.location.href = response.url;
         })
         .catch(error => {
@@ -79,7 +80,7 @@ function LoginPage() {
       <BoxLogin>
         <img src={Logo2} />
         <SignInForm ref={formRef} onSubmit={handleSignInSubmit}>
-          <Title>Painel Administrativo</Title>
+          <Title>Painel Administrativoaa</Title>
           <Subtitle>Insira seu e-mail e senha</Subtitle>
           <Input name="email" placeholder="E-mail" />
           <Input name="password" placeholder="Senha" type="password" />

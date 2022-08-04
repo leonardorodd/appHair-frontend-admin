@@ -11,6 +11,8 @@ import RegisterPage from '../pages/RegisterPage';
 import Establishment from '../pages/Establishment';
 import Artists from '../pages/Artists';
 import Users from '../pages/Users';
+import Contacts from '../pages/Contacts';
+import Clients from '../pages/Clients';
 import SocialLogin from '../pages/SocialLogin';
 import { history } from '../services/history';
 import MessageContainer from '../components/MessageContainer';
@@ -37,6 +39,7 @@ function Routes() {
   return (
     <>
       {alert.message && <MessageContainer message={alert.message} type={alert.type} />}
+      {console.log('logado: ', loggedIn)}
       {!loggedIn ? (
         <Switch>
           <PrivateRoute exact path="/" component={HomePage} />
@@ -53,6 +56,8 @@ function Routes() {
             <PrivateRoute path="/establishment" component={Establishment} />
             <PrivateRoute path="/artists" component={Artists} />
             <PrivateRoute path="/usersmanagement" component={Users} />
+            <PrivateRoute path="/leadsmanagement" component={Contacts} />
+            <PrivateRoute path="/clientsmanagement" component={Clients} />
             <Redirect from="*" to="/" />
           </Layout>
         </Switch>

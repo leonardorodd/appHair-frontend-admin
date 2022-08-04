@@ -20,6 +20,11 @@ export const CreateUserForm = styled(Form)`
   display: flex;
   flex-direction: column;
   padding: 35px;
+
+  > label {
+    margin: 10px 0px 10px 0px;
+    font-weight: bold;
+  }
 `;
 
 export const CreateUserModal = styled(Modal)``;

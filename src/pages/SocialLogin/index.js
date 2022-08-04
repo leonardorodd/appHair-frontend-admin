@@ -1,18 +1,13 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { signInFailure, signOut } from '../../store/modules/auth/actions';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { signInFailure } from '../../store/modules/auth/actions';
 import apiClient from '../../services/apiClient';
-import { useLocation, useHistory } from 'react-router-dom';
-import { errorMessage } from '../../store/modules/alert/actions';
+import { useLocation } from 'react-router-dom';
 import { signInSuccess } from '../../store/modules/auth/actions';
 
 function SocialLogin() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const history = useHistory();
 
   useEffect(() => {
     apiClient
@@ -23,9 +18,9 @@ function SocialLogin() {
       .catch(error => {
         dispatch(signInFailure(error.msg));
       });
-  }, [dispatch, history, location.search]);
+  }, [dispatch, location.search]);
 
-  return <></>;
+  return null;
 }
 
 export default SocialLogin;

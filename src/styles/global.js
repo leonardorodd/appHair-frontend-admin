@@ -1,6 +1,17 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, keyframes } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { darken } from 'polished';
+
+const rotate = keyframes`
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+`;
+
 export default createGlobalStyle`
     :root {
         --base-primary-color: #222;
@@ -166,4 +177,10 @@ export default createGlobalStyle`
         }
     }
 
+    #loadingIcon {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        animation: ${rotate} 1.5s linear infinite;
+    }
 `;

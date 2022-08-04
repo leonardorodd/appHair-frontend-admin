@@ -7,8 +7,8 @@ export const Container = styled.div`
     > thead > tr {
     }
 
-    > tbody > tr > :nth-child(6) {
-      > a {
+    > tbody > tr > :nth-child(4) {
+      > svg {
         &:hover {
           color: var(--base-tertiary-color);
         }
@@ -32,5 +32,11 @@ export const PageTitle = styled.div`
     display: block;
     width: 95%;
     border-bottom: 3px solid #fd854b;
+  }
+
+  > div {
+    display: 'flex';
+    align-itens: 'center';
+    justify-content: 'space-between';
   }
 `;

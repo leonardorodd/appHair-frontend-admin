@@ -1,21 +1,17 @@
-/* eslint-disable no-constant-condition */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 import React, { useState, useRef } from 'react';
 import * as Yup from 'yup';
 import { Container, CreateUserForm, CreateUserModal } from './styles';
-import { FaPlus, FaSpinner } from 'react-icons/fa';
-import { ImSpinner2 } from 'react-icons/im';
+import { FaPlus } from 'react-icons/fa';
 import Input from '../../../components/UnformFields/Input';
 import { useDispatch } from 'react-redux';
 import apiClient from '../../../services/apiClient';
+import { Scope } from '@unform/core';
 import { successMessage /* errorMessage */ } from '../../../store/modules/alert/actions';
 
 const CreateUser = ({ updateUsersList }) => {
   const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [requestErrors, setRequestErrors] = useState([]);
   const formRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -27,11 +23,7 @@ const CreateUser = ({ updateUsersList }) => {
     setShow(true);
   }
 
-  /* function extractErrorMessage(errorName) {
-    console.log(Object.entries(errors).find(object => object[0] === errorName)[1][0]);
-  } */
-
-  const handleCreateUserSubmit = async data => {
+  const handleCreateClientSubmit = async data => {
     try {
       // Remove all previous errors
       formRef.current?.setErrors({});
@@ -45,7 +37,6 @@ const CreateUser = ({ updateUsersList }) => {
       });
       // Validation passed
 
-      setLoading(true);
       apiClient
         .post('admin/user', {
           nome: data.name,
@@ -58,9 +49,16 @@ const CreateUser = ({ updateUsersList }) => {
           dispatch(successMessage('Usuário cadastrado com sucesso'));
           handleClose();
         })
-        .catch(error => {
-          setRequestErrors(error.data.msg);
-        });
+        .catch(
+          error =>
+            console.log(
+              'error: ',
+              error.msg,
+              /*  error.msg.entries.reduce((acc, element) => {
+                return { ...acc, [element[0]]: element.quantity };
+              }, {}), */
+            ) /* dispatch(errorMessage(`Erro ao cadastrar o usuário - ${error.data.msg}`)) */,
+        );
     } catch (err) {
       const validationErrors = {};
       if (err instanceof Yup.ValidationError) {
@@ -87,16 +85,25 @@ const CreateUser = ({ updateUsersList }) => {
       >
         <CreateUserModal.Header>
           <CreateUserModal.Title>
-            <p>Cadastro de Usuário</p>
+            <p>Cadastro de Cliente</p>
           </CreateUserModal.Title>
         </CreateUserModal.Header>
         <CreateUserModal.Body>
-          <CreateUserForm id="form" onSubmit={handleCreateUserSubmit} ref={formRef}>
-            <Input name="name" label="Nome" />
-            {/*             {Object.keys(errors).length > 0 && extractErrorMessage('nome')}
-             */}{' '}
-            <Input name="email" label="Email" />
-            <Input name="password" label="Senha" />
+          <CreateUserForm id="form" onSubmit={handleCreateClientSubmit} ref={formRef}>
+            <Input name="nome" label="Nome" />
+            <Input name="cpf_cnpj" label="Documento" />
+            <Scope path="endereco">
+              <Input name="estado" label="Estado" />
+              <Input name="cidade" label="Cidade" />
+              <Input name="complemento" label="Complemento" />
+              <Input name="cep" label="Cep" />
+            </Scope>
+            <label>Contatos</label>
+            <Scope path="contatos">
+              <Input name="nome" label="Nome" />
+              <Input name="email" label="email" />
+              <Input name="telefone" label="Telefone" />
+            </Scope>
           </CreateUserForm>
         </CreateUserModal.Body>
         <CreateUserModal.Footer>
@@ -104,10 +111,9 @@ const CreateUser = ({ updateUsersList }) => {
             Cancelar
           </button>
           <button type="submit" className="baseButtonStyle" form="form">
-            {true ? <ImSpinner2 id="loadingIcon" /> : 'Salvar'}
+            Salvar
           </button>
         </CreateUserModal.Footer>
-        {console.log('aqui: ', requestErrors)}
       </CreateUserModal>
     </Container>
   );

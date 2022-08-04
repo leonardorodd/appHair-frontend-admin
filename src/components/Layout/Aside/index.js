@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
-import { MdExitToApp, MdStore, MdPerson, MdClear, MdManageAccounts } from 'react-icons/md';
+import { MdExitToApp, MdStore, MdPerson, MdClear, MdManageAccounts, MdPeopleAlt, MdChat } from 'react-icons/md';
 import MenuItemLink from './MenuItem';
 
 import { Container, Header, MenuContainer, LogImg, Footer } from './styles';
@@ -24,6 +24,18 @@ const Aside = () => {
       title: 'Gestão de usuários',
       icon: MdManageAccounts,
       link: '/usersmanagement',
+      subItens: [],
+    },
+    {
+      title: 'Contatos',
+      icon: MdChat,
+      link: '/leadsmanagement',
+      subItens: [],
+    },
+    {
+      title: 'Clientes/Estabelecimentos',
+      icon: MdPeopleAlt,
+      link: '/clientsmanagement',
       subItens: [],
     },
   ];

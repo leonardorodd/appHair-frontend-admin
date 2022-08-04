@@ -7,8 +7,22 @@ import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllRequest, deleteUserRequest } from '../../store/modules/user/actions';
 import { Container, PageTitle } from './styles';
+import { useState } from 'react';
+import apiClient from '../../services/apiClient';
 
 function Artists() {
+  const [userLogs, setUsersLogs] = useState([]);
+
+  useEffect(() => {
+    apiClient
+      .get(`/admin/user/1/logs/access`)
+      .then(response => {
+        /*         setUserLog(result.data[0]);
+         */ console.log('teste: ', response.data);
+      })
+      .catch(error => console.log(error));
+  }, []);
+
   return (
     <Container>
       <PageTitle>

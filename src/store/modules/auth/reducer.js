@@ -19,7 +19,7 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.user = {
           email: action.payload.email,
           nome: action.payload.nome,
-          admin: action.payload.profile.admin,
+          admin: action.payload.profile.admin || false,
         };
         draft.token = {
           access_token: action.payload.token,
